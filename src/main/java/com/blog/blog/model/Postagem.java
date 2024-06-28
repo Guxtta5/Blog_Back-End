@@ -38,11 +38,16 @@ public class Postagem {
 	@UpdateTimestamp
 	private LocalDateTime data;
 	
-	// o código abaixo interliga a classe postagem com a tema
+	// o código abaixo interliga a classe postagem com a tema fazendo assm muitas postagem para 1 tema
 	@ManyToOne
 	@JsonIgnoreProperties("postagem")
 	private Tema tema;
-
+	
+	// o código abaixo interliga a classe postagem com a usuario fazendo assm muitas postagem para 1 usuario
+	@ManyToOne
+	@JsonIgnoreProperties("postagem")
+	private Usuario usuario;
+	
 	public Long getId() {
 		return id;
 	}
@@ -82,6 +87,13 @@ public class Postagem {
 	public void setTema(Tema tema) {
 		this.tema = tema;
 	}
-	
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
 	
 }
