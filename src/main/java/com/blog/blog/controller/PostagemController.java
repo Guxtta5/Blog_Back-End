@@ -34,11 +34,13 @@ public class PostagemController {
 	@Autowired
 	private PostagemRepository postagemRepository;
 	
+	//O comando abaixo ira fazer com que mostre todas as postagens 
 	@GetMapping
 	public ResponseEntity<List<Postagem>> getAll(){
 		return ResponseEntity.ok(postagemRepository.findAll());
 	}
 	
+	//O comando abaixo ira fazer com que mostre a postagem que com o ID indicado
 	@GetMapping("/{id}")
 	public ResponseEntity<Postagem> getById(@PathVariable Long id) {
 		return postagemRepository.findById(id)
@@ -46,17 +48,20 @@ public class PostagemController {
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
 	
+	//O comando abaixo ira fazer com que mostre a postagens que com o titulo indicado
 	@GetMapping("/titulo/{titulo}")
 	public ResponseEntity<List<Postagem>> getByTitulo(@PathVariable String titulo){
 		return ResponseEntity.ok(postagemRepository.findAllByTituloContainingIgnoreCase(titulo)); 
 	}
 	
+	//O comando abaixo ira fazer com que possa fazer uma postagem
 	@PostMapping
 	public ResponseEntity<Postagem> post(@Valid @RequestBody Postagem postagem) {
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(postagemRepository.save(postagem));
 	}
 	
+	//O comando abaixo ira fazer com que atualize uma postagem
 	@PutMapping
 	public ResponseEntity<Postagem> put(@Valid @PathVariable Postagem postagem) {
 		return postagemRepository.findById(postagem.getId())
@@ -65,6 +70,7 @@ public class PostagemController {
 				.orElse(ResponseEntity.status(HttpStatus.NOT_FOUND).build());
 	}
 	
+	//O comando abaixo ira fazer com que delete uma postagem com o ID indicado
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	@DeleteMapping("/{id}")
 	public void delete(@PathVariable Long id) {
